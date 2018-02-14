@@ -339,6 +339,7 @@ internal class CodeGeneratorVisitor(val context: Context, val lifetimes: Map<IrE
     override fun visitModuleFragment(declaration: IrModuleFragment) {
         context.log{"visitModule                    : ${ir2string(declaration)}"}
 
+        BoxCache.initialize(context)
         declaration.acceptChildrenVoid(this)
 
         // Note: it is here because it also generates some bitcode.
@@ -427,7 +428,6 @@ internal class CodeGeneratorVisitor(val context: Context, val lifetimes: Map<IrE
         // TODO: collect those two in one place.
         context.llvm.fileInitializers.clear()
         context.llvm.objects.clear()
-
         using(FileScope(declaration)) {
             declaration.acceptChildrenVoid(this)
 
@@ -2030,6 +2030,10 @@ internal class CodeGeneratorVisitor(val context: Context, val lifetimes: Map<IrE
             }
             "konan.internal.getContinuation" -> return getContinuation()
         }
+
+        BoxCache.getCacheByInRangeChecker(name)?.let { cache -> return cache.inRange(functionGenerationContext, args[0]) }
+
+        BoxCache.getCacheByBoxGetter(name)?.let { cache -> return cache.getCachedValue(functionGenerationContext, args[0]) }
 
         val interop = context.interopBuiltIns
 
