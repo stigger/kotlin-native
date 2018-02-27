@@ -16,6 +16,7 @@
 
 package konan.internal
 
+import konan.SymbolName
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.NativePointed
 import kotlinx.cinterop.NativePtr
@@ -49,16 +50,26 @@ inline fun ieee754NullableEquals(first: Double?, second: Double?): Boolean = whe
 @Intrinsic external fun areEqualByValue(first: CPointer<*>?, second: CPointer<*>?): Boolean
 
 
-@Intrinsic external fun getCachedByteBox(value: Byte): ByteBox
-@Intrinsic external fun inByteBoxCache(value: Byte): Boolean
-@Intrinsic external fun getCachedCharBox(value: Char): CharBox
-@Intrinsic external fun inCharBoxCache(value: Char): Boolean
-@Intrinsic external fun getCachedShortBox(value: Short): ShortBox
-@Intrinsic external fun inShortBoxCache(value: Short): Boolean
-@Intrinsic external fun getCachedIntBox(idx: Int): IntBox
-@Intrinsic external fun inIntBoxCache(value: Int): Boolean
-@Intrinsic external fun getCachedLongBox(value: Long): LongBox
-@Intrinsic external fun inLongBoxCache(value: Long): Boolean
+@SymbolName("getCachedByteBox")
+external fun getCachedByteBox(value: Byte): ByteBox
+@SymbolName("inByteBoxCache")
+external fun inByteBoxCache(value: Byte): Boolean
+@SymbolName("getCachedCharBox")
+external fun getCachedCharBox(value: Char): CharBox
+@SymbolName("inCharBoxCache")
+external fun inCharBoxCache(value: Char): Boolean
+@SymbolName("getCachedShortBox")
+external fun getCachedShortBox(value: Short): ShortBox
+@SymbolName("inShortBoxCache")
+external fun inShortBoxCache(value: Short): Boolean
+@SymbolName("getCachedIntBox")
+external fun getCachedIntBox(idx: Int): IntBox
+@SymbolName("inIntBoxCache")
+external fun inIntBoxCache(value: Int): Boolean
+@SymbolName("getCachedLongBox")
+external fun getCachedLongBox(value: Long): LongBox
+@SymbolName("inLongBoxCache")
+external fun inLongBoxCache(value: Long): Boolean
 
 @Suppress("NOTHING_TO_INLINE")
 inline fun areEqual(first: Any?, second: Any?): Boolean {
