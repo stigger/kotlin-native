@@ -2527,6 +2527,13 @@ task jsinterop_math(type: RunStandaloneKonanTest) {
     flags = ["-r", "$buildDir", "-l", "jsmath"]
 }
 
+task interop_libiconv(type: RunStandaloneKonanTest) {
+    disabled = (isWindows() || (project.testTarget != null))
+    source = "interop/libiconv.kt"
+    flags = ["-linkerOpts", "-liconv"]
+    goldValue = "canonical name for 'UTF8' is 'UTF-8'\n"
+}
+
 task produce_dynamic(type: DynamicKonanTest) {
     disabled = (project.testTarget != null && project.testTarget != project.hostName)
     source = "produce_dynamic/simple/hello.kt"
