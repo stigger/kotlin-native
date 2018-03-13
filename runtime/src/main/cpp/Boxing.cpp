@@ -14,9 +14,6 @@
  * limitations under the License.
  */
 
-#ifndef SRC_BOXING_H
-#define SRC_BOXING_H
-
 #include "Memory.h"
 #include "Types.h"
 
@@ -111,4 +108,3 @@ const ObjHeader* getCachedLongBox(KLong value) {
 }
 
 }
-#endif //SRC_BOXING_H
